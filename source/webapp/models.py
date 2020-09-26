@@ -28,6 +28,14 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
 
 
+    def get_avg_rating(self):
+        total = 0
+        reviews = Review.objects.filter(product=self.pk)
+        for i in reviews:
+            total += int(i.rating)
+        return round(total/len(reviews))
+
+
 RAITING_CHOICES = (
     ('1', '1'),
     ('2', '2'),
@@ -40,7 +48,7 @@ class Review(models.Model):
     author = models.ForeignKey(get_user_model(), null=True, blank=True, on_delete=models.CASCADE,
                              related_name='reviews', verbose_name='Автор')
     product = models.ForeignKey(Product, related_name='product_order', max_length=100, on_delete=models.CASCADE)
-    text = models.TextField(max_length=3000, null=True, blank=True, verbose_name='Текст оьзыва')
+    text = models.TextField(max_length=3000, null=True, blank=True, verbose_name='Текст отзыва')
     rating = models.CharField(max_length=50, choices=RAITING_CHOICES, default=None,
                                 verbose_name='Рейтинг', null=False, blank=False)
 
@@ -50,4 +58,3 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
-

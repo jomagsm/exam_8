@@ -27,7 +27,6 @@ class ProductView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         reviews, page, is_paginated = self.paginate_reviews(self.object)
         context['reviews'] = reviews
         context['page_obj'] = page

@@ -24,6 +24,17 @@
                 <a class="nav-link" href="{% url 'webapp:product_delete' product.pk %}">Удалить продукт <span class="sr-only">(current)</span></a>
     </li>
             {% endif %}
+    {% if request.user.is_authenticated %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'webapp:review_add' product.pk %}">Добавить Отзыв<span class="sr-only">(current)</span></a>
+      </li>
+{#        {% if perms.webapp.delete_product%}#}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'webapp:review_update' product.pk %}">Редавтировать отзыв <span class="sr-only">(current)</span></a>#}
+{#    </li>#}
+{#            {% endif %}#}
+    {% endif %}
+
 {#        {% if perms.webapp.change_project_teams and request.user in project.team.all%}#}
 {#        <li class="nav-item active">#}
 {#                <a class="nav-link" href="{% url 'webapp:update_team' project.pk %}">Редактировать комманду <span class="sr-only">(current)</span></a>#}
@@ -34,6 +45,7 @@
 {% block content %}
     <h1>{{ product.name }}</h1>
     <p class="description">Описание :{{ product.description }}</p>
+    <p class="description">Рейтинг :{{ product.get_avg_rating }}</p>
     <h3>Отзывы:</h3>
     <div class="task-list">
         {% if is_paginated %}
@@ -42,8 +54,17 @@
         {% for review in reviews %}
             <p> <hr class="my-4"> <p>
             <p>Пользователь: {{ review}}</p>
+            <p>E-mail: {{ review.author.email}}</p>
             <p>Отзыв: {{ review.text }}</p>
             <p>Оценка: {{ review.rating }}</p>
+            {% if perms.webapp.change_review or review.author == request.user%}
+                <p><a class=" btn btn-outline-dark btn-sm mb-1 mr-2" href="{% url 'webapp:review_update' review.pk %}">Редактировать</a></p>
+
+            {% endif %}
+            {% if perms.webapp.delete_review or review.author == request.user%}
+                <p><a class=" btn btn-outline-dark btn-sm mb-1 mr-2" href="{% url 'webapp:review_delete' review.pk %}">Удалить</a></p>
+
+            {% endif %}
     {% endfor %}
     </div>
 {% endblock %}

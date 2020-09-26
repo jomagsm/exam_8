@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block menu %}
+{% endblock %}
+{% block content %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    <h1>Продукты!</h1>
+    {% csrf_token %}
+        {% for product in products%}
+        <div class="card" style="width: 18rem;">
+        {% if product.photo %}
+        <img src="{{ product.photo.url }}" class="card-img-top" alt="photo_product">
+        {% else %}
+            <img src="https://запорожье.ремонт-холодильников.org/wp-content/uploads/2014/09/default-placeholder.png" class="card-img-top" alt="photo_product">
+        {% endif %}
+            <div class="card-body">
+    <h5 class="card-title">{{ product.name }}</h5>
+        <p class="card-text">{{ product.description }}</p>
+        <a href="{% url 'webapp:product_view' product.pk %}" class="btn btn-primary">Просмотр</a>
+  </div>
+</div>
+
+
+        {% endfor %}
+{% endblock %}

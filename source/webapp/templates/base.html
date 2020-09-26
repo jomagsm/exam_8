@@ -14,19 +14,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="{% url 'webapp:index_project' %}">Главная <span
-                            class="sr-only">(current)</span></a>
+{#                    <a class="nav-link" href="{% url 'webapp:index_project' %}">Главная <span#}
+{#                            class="sr-only">(current)</span></a>#}
                 </li>
                 {% block menu %}
                 {% endblock %}
                 {% if request.user.is_authenticated %}
-                    {% if perms.accounts.view_users_list %}
-                    <li><a class="nav-link"href="{% url 'accounts:user_list' %}">Список пользователей</a></li>
-                    {% endif %}
                         {% if perms.webapp.add_project %}
                         <li class="nav-item active">
-                        <a class="nav-link" href="{% url 'webapp:create_project' %}">Создать проект<span
-                                class="sr-only">(current)</span></a>
+{#                        <a class="nav-link" href="{% url 'webapp:create_project' %}">Создать проект<span#}
+{#                                class="sr-only">(current)</span></a>#}
                 </li>
                     {% endif %}
                     <li><a class="nav-link"
@@ -46,7 +43,6 @@
                     {% endif %}
                 {% endif %}
             </ul>
-            {% block search %} {% endblock %}
         </div>
     </nav>
 </header>

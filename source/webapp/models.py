@@ -17,7 +17,7 @@ class Product(models.Model):
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES, default=DEFAULT_CATEGORY,
                                 verbose_name='Категория', null=False, blank=False)
     description = models.TextField(max_length=3000, null=True, blank=True, verbose_name='Описание')
-    photo = models.ImageField(upload_to='user_pics', null=True, blank=True, verbose_name='Фото')
+    photo = models.ImageField(upload_to='product_pics', null=True, blank=True, verbose_name='Фото')
 
 
     def __str__(self):

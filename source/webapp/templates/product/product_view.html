@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Продукт{% endblock %}
+
+{% block menu %}
+{#    {% if request.user.is_authenticated %}#}
+{#        {% if perms.webapp.add_task and request.user in project.team.all%}#}
+{#    <li class="nav-item active">#}
+{#        <a class="nav-link" href="{% url 'webapp:add_task' project.pk %}">Добавить Задачу<span class="sr-only">(current)</span></a>#}
+{#      </li>#}
+{#            {% endif %}#}
+{#        {% if perms.webapp.delete_project %}#}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'webapp:delete_project' project.pk %}">Удалить проект <span class="sr-only">(current)</span></a>#}
+{#              </li>#}
+{#            {% endif %}#}
+{#        {% if perms.webapp.change_project %}#}
+{#            <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'webapp:update_project' project.pk %}">Редактировать проект <span class="sr-only">(current)</span></a>#}
+{#    </li>#}
+{#            {% endif %}#}
+{#        {% if perms.webapp.change_project_teams and request.user in project.team.all%}#}
+{#        <li class="nav-item active">#}
+{#                <a class="nav-link" href="{% url 'webapp:update_team' project.pk %}">Редактировать комманду <span class="sr-only">(current)</span></a>#}
+{#    </li>#}
+{#            {% endif %}#}
+{#                {% endif %}#}
+{% endblock %}
+{% block content %}
+    <h1>{{ product.name }}</h1>
+    <p class="description">Описание :{{ product.description }}</p>
+    <h3>Отзывы:</h3>
+    <div class="task-list">
+        {% if is_paginated %}
+            {% include 'partial/pagination.html' %}
+        {% endif %}
+        {% for review in reviews %}
+            <p> <hr class="my-4"> <p>
+            <p>Пользователь: {{ review}}</p>
+            <p>Отзыв: {{ review.text }}</p>
+            <p>Оценка: {{ review.rating }}</p>
+    {% endfor %}
+    </div>
+{% endblock %}

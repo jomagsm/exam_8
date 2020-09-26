@@ -47,6 +47,8 @@
 {% block content %}
     {% if product.photo %}
         <img class="mt-5 img-thumbnail" src="{{ product.photo.url }}" alt="product_photo">
+    {% else %}
+        <img class="mt-5 img-thumbnail" src="{% static 'img/no-photo.jpg' %}" alt="product_photo">
     {% endif %}
 
     <h1>{{ product.name }}</h1>

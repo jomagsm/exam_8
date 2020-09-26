@@ -27,7 +27,6 @@ class Product(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
 
-
     def get_avg_rating(self):
         total = 0
         reviews = Review.objects.filter(product=self.pk)
@@ -45,6 +44,7 @@ RAITING_CHOICES = (
     ('4', '4'),
     ('5', '5'),
 )
+
 
 class Review(models.Model):
     author = models.ForeignKey(get_user_model(), null=True, blank=True, on_delete=models.CASCADE,

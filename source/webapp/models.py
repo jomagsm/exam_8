@@ -31,10 +31,12 @@ class Product(models.Model):
     def get_avg_rating(self):
         total = 0
         reviews = Review.objects.filter(product=self.pk)
-        for i in reviews:
-            total += int(i.rating)
-        return round(total/len(reviews))
-
+        if reviews:
+            for i in reviews:
+                total += int(i.rating)
+            return round(total/len(reviews))
+        else:
+            return total
 
 RAITING_CHOICES = (
     ('1', '1'),

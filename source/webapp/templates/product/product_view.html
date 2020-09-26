@@ -53,7 +53,7 @@
         {% endif %}
         {% for review in reviews %}
             <p> <hr class="my-4"> <p>
-            <p>Пользователь: {{ review}}</p>
+            <p>Пользователь: <a href="{% url 'accounts:detail' review.author.pk %}">{{ review}}</a></p>
             <p>E-mail: {{ review.author.email}}</p>
             <p>Отзыв: {{ review.text }}</p>
             <p>Оценка: {{ review.rating }}</p>

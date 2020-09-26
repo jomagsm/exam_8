@@ -11,6 +11,8 @@ from django.urls import reverse, reverse_lazy
 # from django.views.decorators.cache import never_cache
 from django.views.generic import View, FormView, DetailView, CreateView, UpdateView
 from django.conf import settings
+from webapp.models import Review
+
 
 from accounts.forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, \
     PasswordChangeForm, PasswordResetEmailForm, PasswordResetForm
@@ -59,7 +61,7 @@ class RegisterActivateView(View):
         login(self.request, user)
 
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(DetailView):
     model = get_user_model()
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'
@@ -67,6 +69,8 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     paginate_related_orphans = 0
 
     def get_context_data(self, **kwargs):
+        reviews = Review.objects.filter(author_id=self.kwargs['pk'])
+        kwargs['reviews'] = reviews
         # articles = self.object.articles.order_by('-created_at')
         # paginator = Paginator(articles, self.paginate_related_by, orphans=self.paginate_related_orphans)
         # page_number = self.request.GET.get('page', 1)

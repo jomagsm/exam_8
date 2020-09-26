@@ -16,7 +16,7 @@
     "name": "\u041c\u044b\u043b\u043e",
     "category": "other",
     "description": "\u041c\u044b\u043b\u043e \u041c\u044b\u043b\u043e \u041c\u044b\u043b\u043e \u041c\u044b\u043b\u043e",
-    "photo": ""
+    "photo": "product_pics/5C44EB5C-75B6-4A1E-ABCC-F98397978040.jpeg"
   }
 },
 {
@@ -26,7 +26,7 @@
     "name": "\u0418\u0433\u0440\u0443\u0448\u043a\u0430 \u041a\u0430\u043c\u0430\u0437",
     "category": "toys",
     "description": "\u041a\u0430\u043c\u0430\u0437 \u0438\u0433\u0440\u0443\u0448\u043a\u0430",
-    "photo": ""
+    "photo": "product_pics/5BDCAB62-44A8-491D-8416-544308B89533.jpeg"
   }
 },
 {
@@ -120,16 +120,6 @@
   }
 },
 {
-  "model": "webapp.product",
-  "pk": 13,
-  "fields": {
-    "name": "vdf",
-    "category": "food",
-    "description": "vfdvfd",
-    "photo": ""
-  }
-},
-{
   "model": "webapp.review",
   "pk": 2,
   "fields": {
@@ -176,7 +166,7 @@
     "author": 1,
     "product": 1,
     "text": "\u0425\u043e\u0440\u043e\u0448\u043e",
-    "rating": "4"
+    "rating": "2"
   }
 },
 {
@@ -186,7 +176,17 @@
     "author": 3,
     "product": 1,
     "text": "dlfkgjfdlgjl",
-    "rating": "3"
+    "rating": "1"
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 8,
+  "fields": {
+    "author": 4,
+    "product": 2,
+    "text": "\u041c\u043d\u0435 \u043f\u043e\u043d\u0440\u0430\u0432\u0438\u043b\u0441\u044f",
+    "rating": "5"
   }
 },
 {
@@ -212,6 +212,15 @@
   "pk": 3,
   "fields": {
     "user": 3,
+    "birth_date": null,
+    "avatar": ""
+  }
+},
+{
+  "model": "accounts.profile",
+  "pk": 4,
+  "fields": {
+    "user": 4,
     "birth_date": null,
     "avatar": ""
   }

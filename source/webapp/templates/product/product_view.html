@@ -45,18 +45,19 @@
     {#                {% endif %}#}
 {% endblock %}
 {% block content %}
+    <div class="row">
+    <div class="col-3">
     {% if product.photo %}
-        <img class="mt-5 img-thumbnail" src="{{ product.photo.url }}" alt="product_photo">
+        <img class="mt-5 img-thumbnail img-fluid" src="{{ product.photo.url }}" alt="product_photo">
     {% else %}
-        <img class="mt-5 img-thumbnail" src="{% static 'img/no-photo.jpg' %}" alt="product_photo">
+        <img class="mt-5 img-thumbnail img-fluid" src="{% static 'img/no-photo.jpg' %}" alt="product_photo">
     {% endif %}
-
+    </div>
+    <div class="col mt-5">
     <h1>{{ product.name }}</h1>
     <p class="description">Описание :{{ product.description }}</p>
     <p class="description">Средний рейтинг :
         {% if product.get_avg_rating > 0 %}
-
-
             {% with ''|center:product.get_avg_rating as range %}
                 {% for _ in range %}
                     <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor"
@@ -70,6 +71,8 @@
         {% else %}
             Нет оценок</p>
         {% endif %}
+    </div>
+    </div>
     {% if reviews %}
         <h3>Отзывы:</h3>
         <div class="task-list">

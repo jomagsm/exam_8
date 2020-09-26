@@ -3,68 +3,106 @@
 {% block title %}Продукт{% endblock %}
 
 {% block menu %}
-{#    {% if request.user.is_authenticated %}#}
-{#        {% if perms.webapp.add_task and request.user in project.team.all%}#}
-{#    <li class="nav-item active">#}
-{#        <a class="nav-link" href="{% url 'webapp:add_task' project.pk %}">Добавить Задачу<span class="sr-only">(current)</span></a>#}
-{#      </li>#}
-{#            {% endif %}#}
-{#        {% if perms.webapp.delete_project %}#}
-{#            <li class="nav-item active">#}
-{#                <a class="nav-link" href="{% url 'webapp:delete_project' project.pk %}">Удалить проект <span class="sr-only">(current)</span></a>#}
-{#              </li>#}
-{#            {% endif %}#}
-        {% if perms.webapp.change_product%}
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'webapp:product_update' product.pk %}">Редактировать продукт <span class="sr-only">(current)</span></a>
-    </li>
-            {% endif %}
-    {% if perms.webapp.delete_product%}
-            <li class="nav-item active">
-                <a class="nav-link" href="{% url 'webapp:product_delete' product.pk %}">Удалить продукт <span class="sr-only">(current)</span></a>
-    </li>
-            {% endif %}
+    {#    {% if request.user.is_authenticated %}#}
+    {#        {% if perms.webapp.add_task and request.user in project.team.all%}#}
+    {#    <li class="nav-item active">#}
+    {#        <a class="nav-link" href="{% url 'webapp:add_task' project.pk %}">Добавить Задачу<span class="sr-only">(current)</span></a>#}
+    {#      </li>#}
+    {#            {% endif %}#}
+    {#        {% if perms.webapp.delete_project %}#}
+    {#            <li class="nav-item active">#}
+    {#                <a class="nav-link" href="{% url 'webapp:delete_project' project.pk %}">Удалить проект <span class="sr-only">(current)</span></a>#}
+    {#              </li>#}
+    {#            {% endif %}#}
+    {% if perms.webapp.change_product %}
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'webapp:product_update' product.pk %}">Редактировать продукт <span
+                    class="sr-only">(current)</span></a>
+        </li>
+    {% endif %}
+    {% if perms.webapp.delete_product %}
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'webapp:product_delete' product.pk %}">Удалить продукт <span
+                    class="sr-only">(current)</span></a>
+        </li>
+    {% endif %}
     {% if request.user.is_authenticated %}
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'webapp:review_add' product.pk %}">Добавить Отзыв<span class="sr-only">(current)</span></a>
-      </li>
-{#        {% if perms.webapp.delete_product%}#}
-{#            <li class="nav-item active">#}
-{#                <a class="nav-link" href="{% url 'webapp:review_update' product.pk %}">Редавтировать отзыв <span class="sr-only">(current)</span></a>#}
-{#    </li>#}
-{#            {% endif %}#}
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'webapp:review_add' product.pk %}">Добавить Отзыв<span class="sr-only">(current)</span></a>
+        </li>
+        {#        {% if perms.webapp.delete_product%}#}
+        {#            <li class="nav-item active">#}
+        {#                <a class="nav-link" href="{% url 'webapp:review_update' product.pk %}">Редавтировать отзыв <span class="sr-only">(current)</span></a>#}
+        {#    </li>#}
+        {#            {% endif %}#}
     {% endif %}
 
-{#        {% if perms.webapp.change_project_teams and request.user in project.team.all%}#}
-{#        <li class="nav-item active">#}
-{#                <a class="nav-link" href="{% url 'webapp:update_team' project.pk %}">Редактировать комманду <span class="sr-only">(current)</span></a>#}
-{#    </li>#}
-{#            {% endif %}#}
-{#                {% endif %}#}
+    {#        {% if perms.webapp.change_project_teams and request.user in project.team.all%}#}
+    {#        <li class="nav-item active">#}
+    {#                <a class="nav-link" href="{% url 'webapp:update_team' project.pk %}">Редактировать комманду <span class="sr-only">(current)</span></a>#}
+    {#    </li>#}
+    {#            {% endif %}#}
+    {#                {% endif %}#}
 {% endblock %}
 {% block content %}
+    {% if product.photo %}
+        <img class="mt-5 img-thumbnail" src="{{ product.photo.url }}" alt="product_photo">
+    {% endif %}
+
     <h1>{{ product.name }}</h1>
     <p class="description">Описание :{{ product.description }}</p>
-    <p class="description">Рейтинг :{{ product.get_avg_rating }}</p>
-    <h3>Отзывы:</h3>
-    <div class="task-list">
-        {% if is_paginated %}
-            {% include 'partial/pagination.html' %}
+    <p class="description">Средний рейтинг :
+        {% if product.get_avg_rating > 0 %}
+
+
+            {% with ''|center:product.get_avg_rating as range %}
+                {% for _ in range %}
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill" fill="currentColor"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                    </svg>
+
+                {% endfor %}
+            {% endwith %}
+            </p>
+        {% else %}
+            Нет оценок</p>
         {% endif %}
-        {% for review in reviews %}
-            <p> <hr class="my-4"> <p>
-            <p>Пользователь: <a href="{% url 'accounts:detail' review.author.pk %}">{{ review}}</a></p>
-            <p>E-mail: {{ review.author.email}}</p>
-            <p>Отзыв: {{ review.text }}</p>
-            <p>Оценка: {{ review.rating }}</p>
-            {% if perms.webapp.change_review or review.author == request.user%}
-                <p><a class=" btn btn-outline-dark btn-sm mb-1 mr-2" href="{% url 'webapp:review_update' review.pk %}">Редактировать</a></p>
-
+    {% if reviews %}
+        <h3>Отзывы:</h3>
+        <div class="task-list">
+            {% if is_paginated %}
+                {% include 'partial/pagination.html' %}
             {% endif %}
-            {% if perms.webapp.delete_review or review.author == request.user%}
-                <p><a class=" btn btn-outline-dark btn-sm mb-1 mr-2" href="{% url 'webapp:review_delete' review.pk %}">Удалить</a></p>
+            {% for review in reviews %}
+                <p>
+                <hr class="my-4"> <p>
+                <p>Пользователь: <a href="{% url 'accounts:detail' review.author.pk %}">{{ review }}</a></p>
+                <p>E-mail: {{ review.author.email }}</p>
+                <p>Отзыв: {{ review.text }}</p>
+                <p>Оценка:
+                    {% with ''|center:review.rating as range %}
+                        {% for _ in range %}
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-star-fill"
+                                 fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.283.95l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                            </svg>
+                        {% endfor %}
+                    {% endwith %}</p>
+                {% if perms.webapp.change_review or review.author == request.user %}
+                    <p><a class=" btn btn-outline-dark btn-sm mb-1 mr-2"
+                          href="{% url 'webapp:review_update' review.pk %}">Редактировать</a></p>
 
-            {% endif %}
-    {% endfor %}
-    </div>
+                {% endif %}
+                {% if perms.webapp.delete_review or review.author == request.user %}
+                    <p><a class=" btn btn-outline-dark btn-sm mb-1 mr-2"
+                          href="{% url 'webapp:review_delete' review.pk %}">Удалить</a></p>
+
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Нет отзывов</p>
+    {% endif %}
 {% endblock %}

@@ -8,10 +8,11 @@
     {% endif %}
     <h1>Продукты!</h1>
     {% csrf_token %}
+    <div class="card-deck">
         {% for product in products%}
-        <div class="card" style="width: 18rem;">
+            <div class="card">
         {% if product.photo %}
-        <img src="{{ product.photo.url }}" class="card-img-top" alt="photo_product">
+        <img src="{{ product.photo.url }}" class="card-img-top" alt="photo_product" height="auto">
         {% else %}
             <img src="https://запорожье.ремонт-холодильников.org/wp-content/uploads/2014/09/default-placeholder.png" class="card-img-top" alt="photo_product">
         {% endif %}
@@ -21,7 +22,6 @@
         <a href="{% url 'webapp:product_view' product.pk %}" class="btn btn-primary">Просмотр</a>
   </div>
 </div>
-
-
         {% endfor %}
+    </div>
 {% endblock %}

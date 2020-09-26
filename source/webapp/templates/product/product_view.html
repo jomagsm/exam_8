@@ -14,11 +14,16 @@
 {#                <a class="nav-link" href="{% url 'webapp:delete_project' project.pk %}">Удалить проект <span class="sr-only">(current)</span></a>#}
 {#              </li>#}
 {#            {% endif %}#}
-{#        {% if perms.webapp.change_project %}#}
-{#            <li class="nav-item active">#}
-{#                <a class="nav-link" href="{% url 'webapp:update_project' project.pk %}">Редактировать проект <span class="sr-only">(current)</span></a>#}
-{#    </li>#}
-{#            {% endif %}#}
+        {% if perms.webapp.change_product%}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'webapp:product_update' product.pk %}">Редактировать продукт <span class="sr-only">(current)</span></a>
+    </li>
+            {% endif %}
+    {% if perms.webapp.delete_product%}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'webapp:product_delete' product.pk %}">Удалить продукт <span class="sr-only">(current)</span></a>
+    </li>
+            {% endif %}
 {#        {% if perms.webapp.change_project_teams and request.user in project.team.all%}#}
 {#        <li class="nav-item active">#}
 {#                <a class="nav-link" href="{% url 'webapp:update_team' project.pk %}">Редактировать комманду <span class="sr-only">(current)</span></a>#}

@@ -19,11 +19,15 @@
                 </li>
                 {% block menu %}
                 {% endblock %}
+            <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'webapp:index' %}">Главная<span
+                                class="sr-only">(current)</span></a>
+                </li>
                 {% if request.user.is_authenticated %}
-                        {% if perms.webapp.add_project %}
+                        {% if perms.webapp.add_product %}
                         <li class="nav-item active">
-{#                        <a class="nav-link" href="{% url 'webapp:create_project' %}">Создать проект<span#}
-{#                                class="sr-only">(current)</span></a>#}
+                        <a class="nav-link" href="{% url 'webapp:product_create' %}">Добавить продукт<span
+                                class="sr-only">(current)</span></a>
                 </li>
                     {% endif %}
                     <li><a class="nav-link"
